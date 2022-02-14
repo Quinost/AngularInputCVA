@@ -1,26 +1,27 @@
-import { Directive, Input } from "@angular/core";
-import { ControlValueAccessor, NgControl } from "@angular/forms";
+import { Directive, EventEmitter, Input, Output } from "@angular/core";
+import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+import { QuiErrorMessageService } from "./qui-error-message.service";
 
 @Directive()
 
 export abstract class QuiBaseControl<T> implements ControlValueAccessor {
-    static nextId = 0;
-    constructor(){
-    }
-
-    @Input('aria-describedby') userAriaDescribedBy: string | undefined;
+    constructor(private quiErrorMessagesService: QuiErrorMessageService) {}
 
     @Input() required: boolean = false;
-    @Input() placeholder: string = "";
+    @Input() placeholder: string = "placeholder";
     @Input() disabled: boolean = false;
     @Input() readonly: boolean = false;
-    @Input() hint: string = "";
+    @Input() hintText: string = "";
+    @Input() appearance: "standard" | "fill" | "outline" = "standard";
+    @Input() floatLabel: "always" | "never" | "auto" = "auto";
+    @Input() labelText: string = "Label";
+    @Input() hidden: boolean = false;
 
-
-    abstract id: string;
+    formControl = new FormControl();
     abstract value: T;
     abstract ngControl: NgControl | null;
-    abstract get errorStateMatcher(): boolean;
+    abstract get errorStateMatcher(): ErrorStateMatcher;
 
     onChanged: any = () => { };
     onTouched: any = () => { };
@@ -31,5 +32,16 @@ export abstract class QuiBaseControl<T> implements ControlValueAccessor {
     }
     registerOnTouched(fn: any): void {
         this.onTouched = fn;
+    }
+
+    getErrorMessage(): string {
+        for (const item of this.quiErrorMessagesService.getErrorMessages) {
+            if (this.formControl.hasError(item.forValidator))
+                if (this.quiErrorMessagesService.translateMethod)
+                    return this.quiErrorMessagesService.translateMethod(item.translationKey);
+                else
+                    return item.defaultMessage;
+        }
+        return "No message";
     }
 }

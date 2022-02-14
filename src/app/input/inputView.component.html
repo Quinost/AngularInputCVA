@@ -23,17 +23,7 @@
             <mat-card-subtitle>Input</mat-card-subtitle>
             <qui-input formControlName="input"></qui-input>
           </mat-card>  <br/>
-  
-          <mat-card>
-            <mat-card-subtitle>Input2</mat-card-subtitle>
-            <qui-input2 formControlName="input2"></qui-input2>
-          </mat-card>  <br/>
-  
-          <mat-card>
-            <mat-card-subtitle>Input5</mat-card-subtitle>
-            <qui-input5 formControlName="input5" label="Label" [showClearBtn]="true"></qui-input5>
-          </mat-card>  <br/>
-  
+
           <mat-card>
             <button mat-raised-button color="primary" (click)="onClick()">SuperButton</button>
           </mat-card>  <br/>
@@ -57,7 +47,13 @@
           NormalForm
         </mat-card-title>
         <mat-card>
-          <qui-input2 [(ngModel)]="input2Value"></qui-input2>
+          <mat-form-field appearance="outline" floatLabel="auto">
+            <mat-label>Label</mat-label>
+            <input matInput type="text" placeholder="label" [(ngModel)]="input2Value">
+          </mat-form-field>
+        </mat-card>  <br/>
+        <mat-card>
+          <qui-input [(ngModel)]="input2Value"></qui-input>
         </mat-card>  <br/>
   
         <mat-card>

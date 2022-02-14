@@ -1,16 +1,24 @@
-import { AfterContentInit, Component, Input, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms';
+import { AfterContentInit, Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { FormControl, NgControl, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { QuiErrorMessageService } from 'src/app/qui-error-message.service';
+import { QuiBaseControl } from 'src/app/QuiBaseControl';
 import { QuiErrorStateMatcher } from 'src/app/QuiErrorStateMatcher';
 
 @Component({
   selector: 'qui-input',
   templateUrl: './qui-input.component.html'
 })
-export class QuiInputComponent implements ControlValueAccessor, AfterContentInit {
-  onChanged: any = () => { };
-  onTouched: any = () => { };
+export class QuiInputComponent extends QuiBaseControl<any> implements AfterContentInit {
+  constructor(@Optional() @Self() public ngControl: NgControl,
+    quiErrorMessagesService: QuiErrorMessageService) {
+    super(quiErrorMessagesService);
+    if (ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
-  formCtr: FormControl = new FormControl();
+  @Input() showClearBtn: boolean = false;
 
   @Input() value: any;
   get _value() {
@@ -20,35 +28,22 @@ export class QuiInputComponent implements ControlValueAccessor, AfterContentInit
     this.writeValue(val);
   }
 
-  @Input()
-  get required(): boolean {
-    return this.formCtr.hasValidator(Validators.required);
+  get _required(): boolean {
+    return this.formControl.hasValidator(Validators.required) || this.required;
   }
 
-  constructor(@Optional() @Self() private ngControl: NgControl) {
-    if (ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
+  get errorStateMatcher(): ErrorStateMatcher {
+    return new QuiErrorStateMatcher(this.formControl);
   }
 
   writeValue(obj: any): void {
     this.value = obj;
     this.onChanged(obj);
   }
-  registerOnChange(fn: any): void {
-    this.onChanged = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  errorState() {
-    return new QuiErrorStateMatcher(this.formCtr);
-  }
 
   ngAfterContentInit(): void {
     if (this.ngControl) {
-      this.formCtr = this.ngControl.control as FormControl;
+      this.formControl = this.ngControl.control as FormControl;
     }
   }
 }

@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class QuiErrorMessagesService {
+export class QuiErrorMessageService {
 
   private errorMessages: ErrorMessage[] = [];
+
+  public defaultForValidators: "required" | "email" | "max" | "maxlength" | "min" | "minlength" = "required";
 
   public get getErrorMessages(): ErrorMessage[] {
     return this.errorMessages;
@@ -26,20 +28,11 @@ export interface TranslationService{
   (translationKey: string): string;
 }
 
-export const DefaultErrorForValidator = [
-  "required",
-  "email",
-  "max",
-  "maxlength",
-  "min",
-  "minlength"
-
-];
 
 export class ErrorMessage {
   constructor(
     public forValidator: string,
     public defaultMessage: string,
-    public translationKey: string | null = null,
+    public translationKey: string
   ) { }
 }

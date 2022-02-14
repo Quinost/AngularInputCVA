@@ -1,10 +1,19 @@
-<mat-form-field appearance="standard">
-    <mat-label>Label</mat-label>
-    <input matInput type="text" [(ngModel)]="_value" placeholder="label" [errorStateMatcher]="errorState()" [required]="required">
-    <mat-progress-spinner matSuffix [mode]="'indeterminate'" [diameter]="20" *ngIf="formCtr.pending">
+<mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
+  <mat-label>{{labelText}}</mat-label>
+
+  <input matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
+    [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden"/>
+
+  <ng-container matSuffix>
+    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="20" *ngIf="formControl.pending">
     </mat-progress-spinner>
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="_value = ''" *ngIf="!formCtr.pending">
+    <button mat-icon-button aria-label="Clear" (click)="_value = null" *ngIf="!formControl.pending && showClearBtn"
+      [disabled]="disabled || readonly">
       <mat-icon>close</mat-icon>
     </button>
-    <mat-error>Required <strong>Email</strong></mat-error>
+  </ng-container>
+
+  <mat-hint>{{hintText}}</mat-hint>
+  
+  <mat-error>{{getErrorMessage()}}</mat-error>
 </mat-form-field>
