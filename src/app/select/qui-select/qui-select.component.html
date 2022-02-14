@@ -1,0 +1,11 @@
+<mat-form-field appearance="standard">
+    <mat-label>Choose one</mat-label>
+    <mat-select [(ngModel)]="_value" [multiple]="true" [errorStateMatcher]="errorState()" [required]="_required">
+      <mat-option>Clear</mat-option>
+      <mat-option *ngFor="let item of items" [value]="item.value">
+        {{item.viewValue}}
+      </mat-option>
+    </mat-select>
+    <mat-hint>Errors appear instantly!</mat-hint>
+    <mat-error>You must make a <strong>selection</strong></mat-error>
+</mat-form-field>

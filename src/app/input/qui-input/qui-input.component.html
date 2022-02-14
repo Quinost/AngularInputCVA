@@ -1,7 +1,9 @@
 <mat-form-field appearance="standard">
     <mat-label>Label</mat-label>
     <input matInput type="text" [(ngModel)]="_value" placeholder="label" [errorStateMatcher]="errorState()" [required]="required">
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="_value = ''">
+    <mat-progress-spinner matSuffix [mode]="'indeterminate'" [diameter]="20" *ngIf="formCtr.pending">
+    </mat-progress-spinner>
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="_value = ''" *ngIf="!formCtr.pending">
       <mat-icon>close</mat-icon>
     </button>
     <mat-error>Required <strong>Email</strong></mat-error>

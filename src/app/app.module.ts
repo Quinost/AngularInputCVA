@@ -41,24 +41,32 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { QuiInputComponent } from './qui-input/qui-input.component';
-import { QuiInput2Component } from './qui-input2/qui-input2.component';
-import { QuiInput3Component } from './qui-input3/qui-input3.component';
-import { QuiInput4Component } from './qui-input4/qui-input4.component';
-import { QuiInput5Component } from './qui-input5/qui-input5.component';
+import { QuiInput2Component } from './input/qui-input2/qui-input2.component';
+import { QuiInput5Component } from './input/qui-input5/qui-input5.component';
+import { QuiInputComponent } from './input/qui-input/qui-input.component';
+import { QuiSelectComponent } from './select/qui-select/qui-select.component';
+import { QuiSelect2Component } from './select/qui-select2/qui-select2.component';
+import { QuiSelect3Component } from './select/qui-select3/qui-select3.component';
+import { InputViewComponent } from './input/inputView.component';
+import { AppRoutingModule } from './routing.module';
+import { SelectViewComponent } from './select/selectView.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    InputViewComponent,
+    SelectViewComponent,
     QuiInputComponent,
     QuiInput2Component,
-    QuiInput3Component,
-    QuiInput4Component,
-    QuiInput5Component
+    QuiInput5Component,
+    QuiSelectComponent,
+    QuiSelect2Component,
+    QuiSelect3Component
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,

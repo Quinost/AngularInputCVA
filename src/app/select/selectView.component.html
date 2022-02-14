@@ -1,0 +1,44 @@
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+
+    <mat-card>
+      <mat-card-title>
+        ReactiveForm
+      </mat-card-title>
+
+      <form [formGroup]="fg">
+        <mat-card>           
+          <mat-card-subtitle>Default select</mat-card-subtitle>
+          <mat-form-field appearance="standard">
+            <mat-label>Choose one</mat-label>
+            <mat-select formControlName="default" [multiple]="true">
+              <mat-option>Clear</mat-option>
+              <mat-option *ngFor="let selectModel of matOptionSelectedModel" [value]="selectModel.value">
+                {{selectModel.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error>You must make a selection</mat-error>
+          </mat-form-field>
+        </mat-card><br/>
+
+        <mat-card>
+          <qui-select formControlName="input" [items]="matOptionSelectedModel"></qui-select>
+        </mat-card><br/>
+      </form>
+      <mat-card>
+        {{fg.value | json}}
+      </mat-card><br/>
+  
+    </mat-card><br/>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-title>
+        NormalForm
+      </mat-card-title>
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>
