@@ -26,17 +26,3 @@ export class QuiFormHelper {
         return of(this.takenUsernames.includes(username)).pipe(delay(3000));
     }
 }
-
-export class ErrorMessage {
-    constructor(
-      public forValidator: string,
-      public text: string
-    ) { }
-  }
-
-export const MyFormErrorMessage = [
-    new ErrorMessage('required', 'Field is required'),
-    new ErrorMessage('maxlength', 'Field should have maximal {0}'),
-    new ErrorMessage('email', 'Email is not valid'),
-    new ErrorMessage('minlength', 'Field should have minimal {0}'),
-  ];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ErrorMessage, QuiErrorMessageService } from './qui-error-message.service';
+import { DefaultErrorForValidator, ErrorMessage, QuiErrorMessageService } from './qui-error-message.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ export class AppComponent {
   title:any =  'AngInputCVA';
 
   constructor(quiErr: QuiErrorMessageService){
-    quiErr.addMessage(new ErrorMessage("required", "Default required", ""));
+    quiErr.addMessage(new ErrorMessage(DefaultErrorForValidator.Required, "Default required", ""));
   }
 
 

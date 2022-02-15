@@ -11,27 +11,18 @@
             <mat-card-subtitle>Default input</mat-card-subtitle>
             <mat-form-field appearance="standard">
               <mat-label>Clearable input</mat-label>
-              <input matInput type="text" formControlName="default" placeholder="label">
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="fg.get('default')?.setValue('')">
-                <mat-icon>close</mat-icon>
-              </button>
               <mat-error>Required <strong>Email</strong></mat-error>
             </mat-form-field>
           </mat-card>  <br/>
           
           <mat-card>
-            <mat-card-subtitle>Input</mat-card-subtitle>
-            <qui-input formControlName="input"></qui-input>
+            <mat-card-subtitle>Checkbox</mat-card-subtitle>
           </mat-card>  <br/>
 
           <mat-card>
             <mat-card-subtitle>Input</mat-card-subtitle>
-            <qui-input formControlName="textarea" controlType="textarea"></qui-input>
           </mat-card>  <br/>
 
-          <mat-card>
-            <button mat-raised-button color="primary" (click)="onClick()">SuperButton</button>
-          </mat-card>  <br/>
         </form>
   
         <mat-card>
@@ -54,11 +45,9 @@
         <mat-card>
           <mat-form-field appearance="outline" floatLabel="auto">
             <mat-label>Label</mat-label>
-            <input matInput type="text" placeholder="label" [(ngModel)]="input2Value">
           </mat-form-field>
         </mat-card>  <br/>
         <mat-card>
-          <qui-input [(ngModel)]="input2Value"></qui-input>
         </mat-card>  <br/>
   
         <mat-card>

@@ -1,8 +1,14 @@
 <mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
-  <mat-label>{{labelText}}</mat-label>
+  <mat-label>{{label}}</mat-label>
 
-  <input matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
-    [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden"/>
+  <ng-container *ngIf="controlType == 'input'">
+    <input matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
+      [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden" />
+  </ng-container>
+  <ng-container *ngIf="controlType == 'textarea'">
+    <textarea matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
+      [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden"></textarea>
+  </ng-container>
 
   <ng-container matSuffix>
     <mat-progress-spinner [mode]="'indeterminate'" [diameter]="20" *ngIf="formControl.pending">
@@ -13,7 +19,7 @@
     </button>
   </ng-container>
 
-  <mat-hint>{{hintText}}</mat-hint>
-  
+  <mat-hint>{{hint}}</mat-hint>
+
   <mat-error>{{getErrorMessage()}}</mat-error>
 </mat-form-field>

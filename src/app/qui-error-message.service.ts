@@ -7,8 +7,6 @@ export class QuiErrorMessageService {
 
   private errorMessages: ErrorMessage[] = [];
 
-  public defaultForValidators: "required" | "email" | "max" | "maxlength" | "min" | "minlength" = "required";
-
   public get getErrorMessages(): ErrorMessage[] {
     return this.errorMessages;
   }
@@ -26,6 +24,15 @@ export class QuiErrorMessageService {
 
 export interface TranslationService{
   (translationKey: string): string;
+}
+
+export enum DefaultErrorForValidator {
+  Required = "required",
+  Email = "email",
+  Max = "max",
+  Maxlength = "maxlength",
+  Min = "min",
+  Minlength = "minlength"
 }
 
 

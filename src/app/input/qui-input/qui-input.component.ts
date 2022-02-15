@@ -2,7 +2,7 @@ import { AfterContentInit, Component, EventEmitter, Input, Optional, Output, Sel
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { QuiErrorMessageService } from 'src/app/qui-error-message.service';
-import { QuiBaseControl } from 'src/app/QuiBaseControl';
+import { QuiBaseControl } from 'src/app/qui-base-control.directive';
 import { QuiErrorStateMatcher } from 'src/app/QuiErrorStateMatcher';
 
 @Component({
@@ -18,6 +18,7 @@ export class QuiInputComponent extends QuiBaseControl<any> implements AfterConte
     }
   }
 
+  @Input() controlType: 'input' | 'textarea' = 'input';
   @Input() showClearBtn: boolean = false;
 
   @Input() value: any;
@@ -45,5 +46,7 @@ export class QuiInputComponent extends QuiBaseControl<any> implements AfterConte
     if (this.ngControl) {
       this.formControl = this.ngControl.control as FormControl;
     }
+    if (this.placeholder == "")
+      this.placeholder = this.label;
   }
 }

@@ -9,13 +9,13 @@ export abstract class QuiBaseControl<T> implements ControlValueAccessor {
     constructor(private quiErrorMessagesService: QuiErrorMessageService) {}
 
     @Input() required: boolean = false;
-    @Input() placeholder: string = "placeholder";
+    @Input() placeholder: string = "";
     @Input() disabled: boolean = false;
     @Input() readonly: boolean = false;
-    @Input() hintText: string = "";
+    @Input() hint: string = "";
     @Input() appearance: "standard" | "fill" | "outline" = "standard";
     @Input() floatLabel: "always" | "never" | "auto" = "auto";
-    @Input() labelText: string = "Label";
+    @Input() label: string = "";
     @Input() hidden: boolean = false;
 
     formControl = new FormControl();
