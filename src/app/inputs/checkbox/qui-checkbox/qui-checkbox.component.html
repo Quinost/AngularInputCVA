@@ -1,0 +1,8 @@
+<span>
+  <mat-checkbox [(ngModel)]="_value" [required]="_required" [disabled]="disabled || readonly" [hidden]="hidden"
+    [(indeterminate)]="indeterminate" [color]="color">
+    <ng-content></ng-content>
+  </mat-checkbox>
+  <mat-error class="error-margin" *ngIf="errorStateMatcher?.isErrorState(null, null)">| {{getErrorMessage()}}
+  </mat-error>
+</span>

@@ -3,7 +3,7 @@
 
     <mat-select [(ngModel)]="_value"
                 [multiple]="multiple"
-                [errorStateMatcher]="errorState()"
+                [errorStateMatcher]="errorStateMatcher"
                 [required]="_required"
                 [disabled]="disabled || readonly"
                 [hidden]="hidden"

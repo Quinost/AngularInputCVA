@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultErrorForValidator, ErrorMessage, QuiErrorMessageService } from './qui-error-message.service';
+import { DefaultErrorForValidator, ErrorMessage, QuiErrorMessageService } from './inputs/services/qui-error-message.service';
 
 @Component({
   selector: 'app-root',

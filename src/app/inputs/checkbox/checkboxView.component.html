@@ -9,14 +9,13 @@
         <form [formGroup]="fg">
           <mat-card>
             <mat-card-subtitle>Default input</mat-card-subtitle>
-            <mat-form-field appearance="standard">
-              <mat-label>Clearable input</mat-label>
-              <mat-error>Required <strong>Email</strong></mat-error>
-            </mat-form-field>
+            <mat-checkbox formControlName="default" labelPosition="before">asffafsa</mat-checkbox>
           </mat-card>  <br/>
           
           <mat-card>
             <mat-card-subtitle>Checkbox</mat-card-subtitle>
+            <qui-checkbox formControlName="input">QuiCheckbox Content</qui-checkbox>
+            <qui-checkbox formControlName="input">QuiCheckbox Content</qui-checkbox>
           </mat-card>  <br/>
 
           <mat-card>
@@ -43,9 +42,6 @@
           NormalForm
         </mat-card-title>
         <mat-card>
-          <mat-form-field appearance="outline" floatLabel="auto">
-            <mat-label>Label</mat-label>
-          </mat-form-field>
         </mat-card>  <br/>
         <mat-card>
         </mat-card>  <br/>

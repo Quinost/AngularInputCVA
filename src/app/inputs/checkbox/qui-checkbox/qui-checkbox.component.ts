@@ -1,15 +1,16 @@
 import { AfterContentInit, Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { QuiErrorMessageService } from 'src/app/qui-error-message.service';
-import { QuiBaseControl } from 'src/app/qui-base-control.directive';
-import { QuiErrorStateMatcher } from 'src/app/QuiErrorStateMatcher';
+import { QuiBaseControl } from '../../directives/qui-base-control.directive';
+import { QuiErrorStateMatcher } from '../../QuiErrorStateMatcher';
+import { QuiErrorMessageService } from '../../services/qui-error-message.service';
 
 @Component({
-  selector: 'qui-input',
-  templateUrl: './qui-input.component.html'
+  selector: 'qui-checkbox',
+  templateUrl: './qui-checkbox.component.html',
+  styleUrls: ['./qui-checkbox.component.scss']
 })
-export class QuiInputComponent extends QuiBaseControl<any> implements AfterContentInit {
+export class QuiCheckboxComponent extends QuiBaseControl<boolean> implements AfterContentInit {
   constructor(@Optional() @Self() public ngControl: NgControl,
     quiErrorMessagesService: QuiErrorMessageService) {
     super(quiErrorMessagesService);
@@ -18,19 +19,20 @@ export class QuiInputComponent extends QuiBaseControl<any> implements AfterConte
     }
   }
 
-  @Input() controlType: 'input' | 'textarea' = 'input';
-  @Input() showClearBtn: boolean = false;
+  @Input() indeterminate: boolean = false;
+  @Input() labelPosition: 'after' | 'before' = 'before';
+  @Input() color: 'primary' | 'warn' | 'accent' = 'primary';
 
-  @Input() value: any;
+  @Input() value: boolean = false;
   get _value() {
     return this.value;
   }
-  set _value(val: any) {
+  set _value(val: boolean) {
     this.writeValue(val);
   }
 
   get _required(): boolean {
-    return this.formControl.hasValidator(Validators.required) || this.required;
+    return this.formControl.hasValidator(Validators.required) || this.formControl.hasValidator(Validators.requiredTrue) || this.required;
   }
 
   get errorStateMatcher(): ErrorStateMatcher {
@@ -43,10 +45,7 @@ export class QuiInputComponent extends QuiBaseControl<any> implements AfterConte
   }
 
   ngAfterContentInit(): void {
-    if (this.ngControl) {
+    if (this.ngControl)
       this.formControl = this.ngControl.control as FormControl;
-    }
-    if (this.placeholder == "")
-      this.placeholder = this.label;
   }
 }

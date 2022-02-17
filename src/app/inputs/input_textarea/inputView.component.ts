@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { QuiFormHelper } from '../QuiFormHelper';
+import { QuiFormHelper } from 'src/app/inputs/helpers/QuiFormHelper';
 
 @Component({
   selector: 'qui-inputView',

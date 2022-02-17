@@ -41,13 +41,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { QuiInputComponent } from './input/qui-input/qui-input.component';
-import { InputViewComponent } from './input/inputView.component';
 import { AppRoutingModule } from './routing.module';
-import { SelectViewComponent } from './select/selectView.component';
-import { QuiErrorMessageService } from './qui-error-message.service';
-import { QuiSelectComponent } from './select/qui-select/qui-select.component';
-import { CheckboxViewComponent } from './checkbox/checkboxView.component';
+import { QuiErrorMessageService } from './inputs/services/qui-error-message.service';
+import { CheckboxViewComponent } from './inputs/checkbox/checkboxView.component';
+import { InputViewComponent } from './inputs/input_textarea/inputView.component';
+import { QuiInputComponent } from './inputs/input_textarea/qui-input/qui-input.component';
+import { QuiSelectComponent } from './inputs/select/qui-select/qui-select.component';
+import { SelectViewComponent } from './inputs/select/selectView.component';
+import { QuiCheckboxComponent } from './inputs/checkbox/qui-checkbox/qui-checkbox.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { CheckboxViewComponent } from './checkbox/checkboxView.component';
     SelectViewComponent,
     CheckboxViewComponent,
     QuiInputComponent,
-    QuiSelectComponent
+    QuiSelectComponent,
+    QuiCheckboxComponent
   ],
   imports: [
     BrowserModule,

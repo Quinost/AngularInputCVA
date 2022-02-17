@@ -3,11 +3,11 @@
 
   <ng-container *ngIf="controlType == 'input'">
     <input matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
-      [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden" />
+      [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden" aria-label="input"/>
   </ng-container>
   <ng-container *ngIf="controlType == 'textarea'">
     <textarea matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
-      [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden"></textarea>
+      [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden" aria-label="textarea"></textarea>
   </ng-container>
 
   <ng-container matSuffix>

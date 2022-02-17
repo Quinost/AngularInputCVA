@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CheckboxViewComponent } from './checkbox/checkboxView.component';
-import { InputViewComponent } from './input/inputView.component';
-import { SelectViewComponent } from './select/selectView.component';
+import { CheckboxViewComponent } from './inputs/checkbox/checkboxView.component';
+import { InputViewComponent } from './inputs/input_textarea/inputView.component';
+import { SelectViewComponent } from './inputs/select/selectView.component';
 
 const routes: Routes = [
     {path: '', component: InputViewComponent},

@@ -40,6 +40,6 @@ export class ErrorMessage {
   constructor(
     public forValidator: string,
     public defaultMessage: string,
-    public translationKey: string
+    public translationKey: string,
   ) { }
 }

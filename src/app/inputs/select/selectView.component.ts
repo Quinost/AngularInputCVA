@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { QuiFormHelper } from '../QuiFormHelper';
+import { QuiFormHelper } from 'src/app/inputs/helpers/QuiFormHelper';
 
 @Component({
   selector: 'qui-selectView',

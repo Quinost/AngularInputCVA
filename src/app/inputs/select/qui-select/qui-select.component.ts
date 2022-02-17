@@ -1,16 +1,21 @@
 import { AfterContentInit, Component, Input, Optional, Self } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher, MatOption } from '@angular/material/core';
-import { QuiErrorMessageService } from 'src/app/qui-error-message.service';
-import { QuiBaseControl } from 'src/app/qui-base-control.directive';
-import { QuiErrorStateMatcher } from 'src/app/QuiErrorStateMatcher';
+import { QuiErrorMessageService } from 'src/app/inputs/services/qui-error-message.service';
+import { QuiBaseControl } from 'src/app/inputs/directives/qui-base-control.directive';
+import { QuiErrorStateMatcher } from '../../QuiErrorStateMatcher';
 
 @Component({
   selector: 'qui-select',
   templateUrl: './qui-select.component.html'
 })
 export class QuiSelectComponent extends QuiBaseControl<any> implements AfterContentInit {
-
+  
+  @Input() hint: string = "";
+  @Input() label: string = "";
+  @Input() appearance: "standard" | "fill" | "outline" = "standard";
+  @Input() floatLabel: "always" | "never" | "auto" = "auto";
+  @Input() placeholder: string = "";
   @Input() items!: MatOption<any>[];
   @Input() multiple: boolean = false;
 
@@ -42,9 +47,6 @@ export class QuiSelectComponent extends QuiBaseControl<any> implements AfterCont
     this.onChanged(obj);
   }
 
-  errorState() {
-    return new QuiErrorStateMatcher(this.formControl);
-  }
 
   ngAfterContentInit(): void {
     if (this.ngControl) {
