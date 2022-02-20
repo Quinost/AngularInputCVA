@@ -20,6 +20,9 @@
                             [readonly]="readonly"></qui-input>
             </form>
         </mat-card-content>
+        <mat-card-footer>
+            {{fg.value | json}}
+        </mat-card-footer>
     </mat-card>
     <mat-card>
         <mat-card-subtitle>
@@ -38,6 +41,9 @@
                     [hidden]="hidden"
                     [readonly]="readonly"></qui-input>
         </mat-card-content>
+        <mat-card-footer>
+            {{ngModel}}
+        </mat-card-footer>
     </mat-card>
 </mat-card>
 <mat-card>
@@ -47,12 +53,12 @@
     <p><qui-input [(ngModel)]="placeholder" label="[placeholder]"></qui-input> If empty its take label value</p>
     <p><qui-select [items]="apperance" [(ngModel)]="apperanceItem" label="[appearance]"></qui-select></p>
     <p><qui-select [items]="floatLabel" [(ngModel)]="floatLabelItem" label="[floatLabel]"></qui-select></p>
-    <p><qui-checkbox [(ngModel)]="showClearBtn" labelPosition="before">[showClearBtn]</qui-checkbox></p>
-    <p><qui-checkbox [(ngModel)]="required" labelPosition="before">[required]</qui-checkbox></p>
-    <p><qui-checkbox [(ngModel)]="hidden" labelPosition="before">[hidden]</qui-checkbox></p>
-    <p><qui-checkbox [(ngModel)]="readonly" labelPosition="before">[readonly]</qui-checkbox></p>
-    <p><qui-checkbox [(ngModel)]="disabled" labelPosition="before" (ngModelChange)="disabledChanged($event)">[disabled]</qui-checkbox></p>
-    <p><qui-checkbox labelPosition="before" [(ngModel)]="asyncValidator" (ngModelChange)="validatorChanged($event)">Add async validator for input 'hello'</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="showClearBtn">[showClearBtn]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="required">[required]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="hidden">[hidden]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="readonly">[readonly]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="disabled" (ngModelChange)="disabledChanged($event)">[disabled]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="asyncValidator" (ngModelChange)="validatorChanged($event)">Add async validator for input 'hello'</qui-checkbox></p>
     <p>Clear button is disabled when ([disabled] || [readonly]) == true</p>
     <p>When input has async validator its show Mat Progress Spinner in the same place as clear button</p>
     <p>Error messages (with translations) can be set up in QuiErrorMessageService</p>

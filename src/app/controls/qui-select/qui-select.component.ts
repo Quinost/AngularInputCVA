@@ -39,10 +39,6 @@ export class QuiSelectComponent extends QuiBaseControl<any> implements AfterCont
     return this.formControl.hasValidator(Validators.required) || this.required;
   }
 
-  get errorStateMatcher(): ErrorStateMatcher {
-    return new QuiErrorStateMatcher(this.formControl);
-  }
-
   writeValue(obj: any): void {
     this.value = obj;
     this.onChanged(obj);

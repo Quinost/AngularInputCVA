@@ -11,6 +11,9 @@
                 <qui-checkbox formControlName="input">QuiLabelCheckbox</qui-checkbox>
             </form>
         </mat-card-content>
+        <mat-card-footer>
+            {{fg.value | json}}
+        </mat-card-footer>
     </mat-card>
     <mat-card>
         <mat-card-subtitle>
@@ -19,6 +22,9 @@
         <mat-card-content>
             <qui-checkbox [(ngModel)]="ngModel">QuiLabelCheckbox</qui-checkbox>
         </mat-card-content>
+        <mat-card-footer>
+            {{ngModel}}
+        </mat-card-footer>
     </mat-card>
 </mat-card>
 <mat-card>

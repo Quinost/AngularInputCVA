@@ -1,8 +1,6 @@
-import { AfterContentInit, Component, Input, Optional, Self } from '@angular/core';
-import { FormControl, NgControl, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { QuiBaseControl } from '../base/directives/qui-base-control.directive';
-import { QuiErrorStateMatcher } from '../base/qui-error-state-matcher';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { QuiInputBaseControl } from '../base/directives/qui-input-base-control.directive';
 import { QuiErrorMessageService } from '../base/services/qui-error-message.service';
 
 @Component({
@@ -10,7 +8,7 @@ import { QuiErrorMessageService } from '../base/services/qui-error-message.servi
   templateUrl: './qui-textarea.component.html',
   styleUrls: ['./qui-textarea.component.scss']
 })
-export class QuiTextareaComponent extends QuiBaseControl<any> implements AfterContentInit {
+export class QuiTextareaComponent extends QuiInputBaseControl<string | null> {
   constructor(@Optional() @Self() public ngControl: NgControl,
     quiErrorMessagesService: QuiErrorMessageService) {
     super(quiErrorMessagesService);
@@ -19,39 +17,18 @@ export class QuiTextareaComponent extends QuiBaseControl<any> implements AfterCo
     }
   }
 
-  @Input() hint: string = "";
-  @Input() label: string = "";
-  @Input() appearance: "standard" | "fill" | "outline" = "standard";
-  @Input() floatLabel: "always" | "never" | "auto" = "auto";
-  @Input() placeholder: string = "";
   @Input() showClearBtn: boolean = false;
 
-  @Input() value: any;
+  @Input() value!: string | null;
   get _value() {
     return this.value;
   }
-  set _value(val: any) {
+  set _value(val: string | null) {
     this.writeValue(val);
-  }
-
-  get _required(): boolean {
-    return this.formControl.hasValidator(Validators.required) || this.required;
-  }
-
-  get errorStateMatcher(): ErrorStateMatcher {
-    return new QuiErrorStateMatcher(this.formControl);
   }
 
   writeValue(obj: any): void {
     this.value = obj;
     this.onChanged(obj);
-  }
-
-  ngAfterContentInit(): void {
-    if (this.ngControl) {
-      this.formControl = this.ngControl.control as FormControl;
-    }
-    if (this.placeholder == "")
-      this.placeholder = this.label;
   }
 }

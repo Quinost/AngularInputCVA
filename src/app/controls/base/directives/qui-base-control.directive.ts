@@ -1,12 +1,13 @@
 import { Directive, Input } from "@angular/core";
 import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { QuiErrorStateMatcher } from "../qui-error-state-matcher";
 import { QuiErrorMessageService } from "../services/qui-error-message.service";
 
 @Directive()
 
 export abstract class QuiBaseControl<T> implements ControlValueAccessor {
-    constructor(private quiErrorMessagesService: QuiErrorMessageService) {}
+    constructor(private quiErrorMessagesService: QuiErrorMessageService) { }
 
     @Input() required: boolean = false;
     @Input() disabled: boolean = false;
@@ -16,10 +17,14 @@ export abstract class QuiBaseControl<T> implements ControlValueAccessor {
     formControl = new FormControl();
     abstract value: T;
     abstract ngControl: NgControl | null;
-    abstract get errorStateMatcher(): ErrorStateMatcher;
+    //abstract get errorStateMatcher(): ErrorStateMatcher;
 
     onChanged: any = () => { };
     onTouched: any = () => { };
+
+    get errorStateMatcher(): ErrorStateMatcher {
+        return new QuiErrorStateMatcher(this.formControl);
+    }
 
     abstract writeValue(obj: any): void;
     registerOnChange(fn: any): void {
@@ -40,7 +45,7 @@ export abstract class QuiBaseControl<T> implements ControlValueAccessor {
         return "No message";
     }
 
-    setDisabledState?(isDisabled: boolean){
+    setDisabledState?(isDisabled: boolean) {
         this.disabled = isDisabled;
     }
 }

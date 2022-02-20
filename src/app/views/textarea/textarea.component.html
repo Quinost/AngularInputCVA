@@ -11,6 +11,9 @@
                 <qui-textarea label="QuiInputLabel" formControlName="input" [showClearBtn]="true"></qui-textarea>
             </form>
         </mat-card-content>
+        <mat-card-footer>
+            {{fg.value | json}}
+        </mat-card-footer>
     </mat-card>
     <mat-card>
         <mat-card-subtitle>
@@ -19,6 +22,9 @@
         <mat-card-content>
             <qui-textarea label="QuiInputLabel" [(ngModel)]="ngModel"></qui-textarea>
         </mat-card-content>
+        <mat-card-footer>
+            {{ngModel}}
+        </mat-card-footer>
     </mat-card>
 </mat-card>
 <mat-card>

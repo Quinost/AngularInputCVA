@@ -1,8 +1,6 @@
-import { AfterContentInit, Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { AfterContentInit, Component, Input, Optional, Self } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { QuiBaseControl } from '../base/directives/qui-base-control.directive';
-import { QuiErrorStateMatcher } from '../base/qui-error-state-matcher';
 import { QuiErrorMessageService } from '../base/services/qui-error-message.service';
 
 @Component({
@@ -20,7 +18,7 @@ export class QuiCheckboxComponent extends QuiBaseControl<boolean> implements Aft
   }
 
   @Input() indeterminate: boolean = false;
-  @Input() labelPosition: 'after' | 'before' = 'before';
+  @Input() labelPosition: 'after' | 'before' = 'after';
   @Input() color: 'primary' | 'warn' | 'accent' = 'primary';
 
   @Input() value: boolean = false;
@@ -33,10 +31,6 @@ export class QuiCheckboxComponent extends QuiBaseControl<boolean> implements Aft
 
   get _required(): boolean {
     return this.formControl.hasValidator(Validators.requiredTrue) || this.required;
-  }
-
-  get errorStateMatcher(): ErrorStateMatcher {
-    return new QuiErrorStateMatcher(this.formControl);
   }
 
   writeValue(obj: any): void {

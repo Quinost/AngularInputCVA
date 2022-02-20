@@ -4,13 +4,13 @@ import { MatOption } from '@angular/material/core';
 import { QuiFormHelper } from 'src/app/controls/base/helpers/qui-form-helper';
 
 @Component({
-  selector: 'app-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.scss']
+  selector: 'app-password',
+  templateUrl: './password.component.html',
+  styleUrls: ['./password.component.scss']
 })
-export class DatepickerViewComponent {
+export class PasswordComponent {
   fg = new FormGroup({
-    input: new FormControl(null, Validators.required)
+    input: new FormControl("formControlInput", Validators.required)
   });
 
   constructor() {
@@ -22,7 +22,7 @@ export class DatepickerViewComponent {
     <MatOption<string>>{ value: "auto", viewValue: "auto" },];
   }
 
-  ngModel = "";
+  ngModel = "ngModelInput"
   hint: string = "";
   label: string = "";
   placeholder: string = "";

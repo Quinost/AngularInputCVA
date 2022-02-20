@@ -57,6 +57,8 @@ import { QuiCheckboxComponent } from './controls/qui-checkbox/qui-checkbox.compo
 import { QuiNumberComponent } from './controls/qui-number/qui-number.component';
 import { QuiSelectComponent } from './controls/qui-select/qui-select.component';
 import { QuiTextareaComponent } from './controls/qui-textarea/qui-textarea.component';
+import { PasswordComponent } from './views/password/password.component';
+import { QuiPasswordComponent } from './controls/qui-password/qui-password.component';
 
 
 @NgModule({
@@ -69,6 +71,7 @@ import { QuiTextareaComponent } from './controls/qui-textarea/qui-textarea.compo
     CheckboxViewComponent,
     AutoCompleteViewComponent,
     DatepickerViewComponent,
+    PasswordComponent,
 
     QuiAutoCompleteComponent,
     QuiCheckboxComponent,
@@ -76,7 +79,8 @@ import { QuiTextareaComponent } from './controls/qui-textarea/qui-textarea.compo
     QuiInputComponent,
     QuiNumberComponent,
     QuiSelectComponent,
-    QuiTextareaComponent
+    QuiTextareaComponent,
+    QuiPasswordComponent
   ],
   imports: [
     BrowserModule,

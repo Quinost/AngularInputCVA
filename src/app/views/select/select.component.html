@@ -8,15 +8,23 @@
         </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="fg">
+                <qui-select [items]="items" formControlName="input"></qui-select>
             </form>
         </mat-card-content>
+        <mat-card-footer>
+            {{fg.value | json}}
+        </mat-card-footer>
     </mat-card>
     <mat-card>
         <mat-card-subtitle>
             NgModel
         </mat-card-subtitle>
         <mat-card-content>
+            <qui-select [items]="items" [(ngModel)]="ngModel"></qui-select>
         </mat-card-content>
+        <mat-card-footer>
+            {{ngModel | json}}
+        </mat-card-footer>
     </mat-card>
 </mat-card>
 <mat-card>
