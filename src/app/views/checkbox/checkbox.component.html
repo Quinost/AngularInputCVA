@@ -1,0 +1,26 @@
+<mat-card style="text-align: center;">
+    <h1>Checkbox</h1>
+</mat-card>
+<mat-card class="card-container">
+    <mat-card>
+        <mat-card-subtitle>
+            ReactiveForms
+        </mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="fg">
+                <qui-checkbox formControlName="input">QuiLabelCheckbox</qui-checkbox>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-subtitle>
+            NgModel
+        </mat-card-subtitle>
+        <mat-card-content>
+            <qui-checkbox [(ngModel)]="ngModel">QuiLabelCheckbox</qui-checkbox>
+        </mat-card-content>
+    </mat-card>
+</mat-card>
+<mat-card>
+    <p>Error messages (with translations) can be set up in QuiErrorMessageService</p>
+</mat-card>

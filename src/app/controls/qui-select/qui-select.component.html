@@ -1,0 +1,20 @@
+<mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
+    <mat-label>{{label}}</mat-label>
+
+    <mat-select [(ngModel)]="_value"
+                [multiple]="multiple"
+                [errorStateMatcher]="errorStateMatcher"
+                [required]="_required"
+                [disabled]="disabled || readonly"
+                [hidden]="hidden"
+                [placeholder]="placeholder"
+                [title]="'ddd'">
+      <mat-option *ngFor="let item of items" [value]="item.value">
+        {{item.viewValue}}
+      </mat-option>
+    </mat-select>
+
+    <mat-hint>{{hint}}</mat-hint>
+
+    <mat-error>{{getErrorMessage()}}</mat-error>
+</mat-form-field>

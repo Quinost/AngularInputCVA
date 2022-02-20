@@ -42,24 +42,41 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { AppRoutingModule } from './routing.module';
-import { QuiErrorMessageService } from './inputs/services/qui-error-message.service';
-import { CheckboxViewComponent } from './inputs/checkbox/checkboxView.component';
-import { InputViewComponent } from './inputs/input_textarea/inputView.component';
-import { QuiInputComponent } from './inputs/input_textarea/qui-input/qui-input.component';
-import { QuiSelectComponent } from './inputs/select/qui-select/qui-select.component';
-import { SelectViewComponent } from './inputs/select/selectView.component';
-import { QuiCheckboxComponent } from './inputs/checkbox/qui-checkbox/qui-checkbox.component';
+import { QuiDatepickerComponent } from './controls/qui-datepicker/qui-datepicker.component';
+import { QuiAutoCompleteComponent } from './controls/qui-auto-complete/qui-auto-complete.component';
+import { SelectViewComponent } from './views/select/select.component';
+import { InputViewComponent } from './views/input/input.component';
+import { TextareaViewComponent } from './views/textarea/textarea.component';
+import { NumberViewComponent } from './views/number/number.component';
+import { CheckboxViewComponent } from './views/checkbox/checkbox.component';
+import { AutoCompleteViewComponent } from './views/auto-complete/auto-complete.component';
+import { DatepickerViewComponent } from './views/datepicker/datepicker.component';
+import { QuiErrorMessageService } from './controls/base/services/qui-error-message.service';
+import { QuiInputComponent } from './controls/qui-input/qui-input.component';
+import { QuiCheckboxComponent } from './controls/qui-checkbox/qui-checkbox.component';
+import { QuiNumberComponent } from './controls/qui-number/qui-number.component';
+import { QuiSelectComponent } from './controls/qui-select/qui-select.component';
+import { QuiTextareaComponent } from './controls/qui-textarea/qui-textarea.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    InputViewComponent,
     SelectViewComponent,
+    InputViewComponent,
+    TextareaViewComponent,
+    NumberViewComponent,
     CheckboxViewComponent,
+    AutoCompleteViewComponent,
+    DatepickerViewComponent,
+
+    QuiAutoCompleteComponent,
+    QuiCheckboxComponent,
+    QuiDatepickerComponent,
     QuiInputComponent,
+    QuiNumberComponent,
     QuiSelectComponent,
-    QuiCheckboxComponent
+    QuiTextareaComponent
   ],
   imports: [
     BrowserModule,

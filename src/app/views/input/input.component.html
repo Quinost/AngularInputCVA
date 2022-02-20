@@ -1,0 +1,59 @@
+<mat-card style="text-align: center;">
+    <h1>Input</h1>
+</mat-card>
+<mat-card class="card-container">
+    <mat-card>
+        <mat-card-subtitle>
+            ReactiveForms
+        </mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="fg">
+                <qui-input label="QuiInputLabel" 
+                            formControlName="input" 
+                            [showClearBtn]="showClearBtn"
+                            [hint]="hint"
+                            [label]="label"
+                            [placeholder]="placeholder"
+                            [appearance]="apperanceItem"
+                            [floatLabel]="floatLabelItem"
+                            [hidden]="hidden"
+                            [readonly]="readonly"></qui-input>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-subtitle>
+            NgModel
+        </mat-card-subtitle>
+        <mat-card-content>
+            <qui-input label="QuiInputLabel" [(ngModel)]="ngModel" 
+                    [required]="required"
+                    [disabled]="disabled"
+                    [showClearBtn]="showClearBtn"
+                    [hint]="hint"
+                    [label]="label"
+                    [placeholder]="placeholder"
+                    [appearance]="apperanceItem"
+                    [floatLabel]="floatLabelItem"
+                    [hidden]="hidden"
+                    [readonly]="readonly"></qui-input>
+        </mat-card-content>
+    </mat-card>
+</mat-card>
+<mat-card>
+    <p><strong>You can use reactive forms normally or ngModel</strong></p>
+    <p><qui-input [(ngModel)]="hint" label="[hint]"></qui-input></p>
+    <p><qui-input [(ngModel)]="label" label="[label]"></qui-input></p>
+    <p><qui-input [(ngModel)]="placeholder" label="[placeholder]"></qui-input> If empty its take label value</p>
+    <p><qui-select [items]="apperance" [(ngModel)]="apperanceItem" label="[appearance]"></qui-select></p>
+    <p><qui-select [items]="floatLabel" [(ngModel)]="floatLabelItem" label="[floatLabel]"></qui-select></p>
+    <p><qui-checkbox [(ngModel)]="showClearBtn" labelPosition="before">[showClearBtn]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="required" labelPosition="before">[required]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="hidden" labelPosition="before">[hidden]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="readonly" labelPosition="before">[readonly]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="disabled" labelPosition="before" (ngModelChange)="disabledChanged($event)">[disabled]</qui-checkbox></p>
+    <p><qui-checkbox labelPosition="before" [(ngModel)]="asyncValidator" (ngModelChange)="validatorChanged($event)">Add async validator for input 'hello'</qui-checkbox></p>
+    <p>Clear button is disabled when ([disabled] || [readonly]) == true</p>
+    <p>When input has async validator its show Mat Progress Spinner in the same place as clear button</p>
+    <p>Error messages (with translations) can be set up in QuiErrorMessageService</p>
+</mat-card>

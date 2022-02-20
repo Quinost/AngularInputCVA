@@ -1,0 +1,13 @@
+.nav-container{
+    display: flex;
+    margin-left: 50px;
+    button {
+        margin: 5px;
+    }
+}
+
+.content-container{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
