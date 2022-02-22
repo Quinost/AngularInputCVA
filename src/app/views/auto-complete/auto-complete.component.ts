@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { delay, map, Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { QuiFormHelper } from 'src/app/controls/base/helpers/qui-form-helper';
 
 @Component({
@@ -21,12 +21,14 @@ export class AutoCompleteViewComponent {
     <Model>{ id: 2, value: "Czechia" },
     <Model>{ id: 2, value: "Denmark" },
     <Model>{ id: 2, value: "Sweden" },
-    <Model>{ id: 2, value: "Luxembourg" }]
+    <Model>{ id: 2, value: "Luxembourg" }];
+
     this.items = QuiFormHelper.convertToMatOption(list, "value");
     this.itemsCopy = QuiFormHelper.convertToMatOption(list, "value");
     this.ngModel = list[0];
     this.fg = new FormGroup({
-      input: new FormControl(this.items[0].value, Validators.required)
+      input: new FormControl(this.items[0].value, Validators.required),
+      input2: new FormControl(this.items[1].value, Validators.required)
     });
   }
 
@@ -40,8 +42,6 @@ export class AutoCompleteViewComponent {
   ngModel: Model;
 
   filterOption(value: any): Observable<MatOption<Model>[]> {
-    console.log(value);
-    console.log(this.itemsCopy);
     return of(this.itemsCopy.filter(x => x.viewValue.includes(value))).pipe(delay(2000));
   }
 }

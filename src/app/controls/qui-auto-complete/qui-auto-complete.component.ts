@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, pipe, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, catchError, debounceTime, distinctUntilChanged, finalize, iif, map, mergeMap, Observable, pipe, startWith, Subject, switchMap, takeUntil, takeWhile, tap } from 'rxjs';
 import { QuiBaseControl } from '../base/directives/qui-base-control.directive';
 import { QuiErrorMessageService } from '../base/services/qui-error-message.service';
 
@@ -30,9 +30,8 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
 
   inputFormControl: FormControl = new FormControl("");
 
-  itemsCopy!: MatOption<any>[];
   asyncItems!: Observable<MatOption<any>[]>;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -53,8 +52,6 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
     this.onChanged(obj);
   }
 
-  stopSignal$ = new Subject();
-
   ngAfterContentInit(): void {
     if (this.items)
       this.asyncItems = new Observable(o => o.next(this.items));
@@ -65,46 +62,37 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
         if (this.filterOptions) {
           this.asyncItems = this.ngControl.valueChanges.pipe(
             startWith(''),
-            distinctUntilChanged(),
-            debounceTime(1000),
-            map(x => {
-              if (typeof x != "string")
-                this.stopSignal$.next(null);
-              return x;
-            }),
-            takeUntil(this.stopSignal$),
-            tap(() => {
-              this.isLoading = true
-            }),
+            distinctUntilChanged(
+              (a, b) => {
+                if (typeof b == 'string')
+                  return false;
+                if (a == b)
+                  return false;
+                return true;
+              }
+            ),
+            debounceTime(1500),
+            tap(() => this.isLoading = true),
             switchMap(x => {
-              return this.filterOptions(x);
-            }),
-            tap(x => {
-              this.isLoading = false;
+              return this.filterOptions(x).pipe(finalize(() => this.isLoading = false));
             }));
         }
         else {
           this.asyncItems = this.ngControl.valueChanges.pipe(
             startWith(''),
+            distinctUntilChanged(
+              (a, b) => {
+                if (typeof b == 'string')
+                  return false;
+                if (a == b)
+                  return false;
+                return true;
+              }
+            ),
             map(name => this.filter(name)),
           );
         }
       }
-      /*
-                this.asyncItems = this.ngControl.valueChanges.pipe(
-            startWith(''),
-            distinctUntilChanged(),
-            debounceTime(1000),
-            tap(() => {
-              this.isLoading = true
-            } ),
-            switchMap(x => {
-              return this.filterOptions(x);
-            }),
-            tap(x => {
-              this.isLoading = false;
-            }));
-            */
     }
 
     if (this.placeholder == "")
@@ -112,6 +100,7 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   }
 
   private filter(value: any): MatOption<any>[] {
+
     return this.items?.filter(x => x.viewValue.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
   }
 

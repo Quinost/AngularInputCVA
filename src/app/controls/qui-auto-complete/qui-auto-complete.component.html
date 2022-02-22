@@ -7,7 +7,7 @@
             <mat-option disabled *ngIf="isLoading">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </mat-option>
-            <mat-option *ngFor="let item of asyncItems | async" [value]="item.value" [disabled]="isLoading">
+            <mat-option *ngFor="let item of asyncItems | async" [value]="item.value" [ngStyle]="{display: isLoading ? 'none' : 'block'}">
                 {{item.viewValue}}
             </mat-option>
         </ng-container>
