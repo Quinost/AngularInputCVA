@@ -8,7 +8,7 @@
         </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="fg">
-                <qui-auto-complete formControlName="input" [items]="items" [filterOptions]="filterOption"></qui-auto-complete>
+                <qui-auto-complete formControlName="input" [items]="items" [filterOptions]="filterOption.bind(this)"></qui-auto-complete>
             </form>
         </mat-card-content>
         <mat-card-footer>

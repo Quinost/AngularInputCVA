@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { concat, concatMap, debounceTime, defaultIfEmpty, distinctUntilChanged, filter, map, merge, observable, Observable, pipe, startWith, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, map, Observable, pipe, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { QuiBaseControl } from '../base/directives/qui-base-control.directive';
 import { QuiErrorMessageService } from '../base/services/qui-error-message.service';
 
@@ -26,12 +26,15 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   @Input() placeholder: string = "";
   @Input() items!: MatOption<any>[];
   @Input() multiple: boolean = false;
-  @Input() filterOptions: ((value: any) => Observable<MatOption<any>[]>) | null = null;
+  @Input() filterOptions!: ((value: any) => Observable<MatOption<any>[]>);
 
   inputFormControl: FormControl = new FormControl("");
 
+  itemsCopy!: MatOption<any>[];
   asyncItems!: Observable<MatOption<any>[]>;
-  loading: boolean = false;
+  isLoading: boolean = true;
+
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   @Input() value: any;
   get _value() {
@@ -50,41 +53,68 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
     this.onChanged(obj);
   }
 
+  stopSignal$ = new Subject();
+
   ngAfterContentInit(): void {
     if (this.items)
       this.asyncItems = new Observable(o => o.next(this.items));
 
     if (this.ngControl) {
       this.formControl = this.ngControl.control as FormControl;
-      if (this.filterOptions != null) {
-        if (this.ngControl.valueChanges)
-          this.ngControl.valueChanges.pipe(
+      if (this.ngControl.valueChanges) {
+        if (this.filterOptions) {
+          this.asyncItems = this.ngControl.valueChanges.pipe(
             startWith(''),
-            tap(t => this.loading = true),
             distinctUntilChanged(),
-            debounceTime(2000),
-            tap(t => this.asyncItems = new Observable()),
-            map((x: any) => {
-              if (this.filterOptions)
-                this.filterOptions(x).subscribe({
-                  next: (v) => {
-                    console.log(v);
-                    this.asyncItems = new Observable(o => o.next(v));
-                    this.loading = false
-                  },
-                  error: () => {
-                    console.log("error");
-                    this.loading = false
-                  }
-                })
+            debounceTime(1000),
+            map(x => {
+              if (typeof x != "string")
+                this.stopSignal$.next(null);
+              return x;
             }),
-          ).subscribe();
+            takeUntil(this.stopSignal$),
+            tap(() => {
+              this.isLoading = true
+            }),
+            switchMap(x => {
+              return this.filterOptions(x);
+            }),
+            tap(x => {
+              this.isLoading = false;
+            }));
+        }
+        else {
+          this.asyncItems = this.ngControl.valueChanges.pipe(
+            startWith(''),
+            map(name => this.filter(name)),
+          );
+        }
       }
+      /*
+                this.asyncItems = this.ngControl.valueChanges.pipe(
+            startWith(''),
+            distinctUntilChanged(),
+            debounceTime(1000),
+            tap(() => {
+              this.isLoading = true
+            } ),
+            switchMap(x => {
+              return this.filterOptions(x);
+            }),
+            tap(x => {
+              this.isLoading = false;
+            }));
+            */
     }
 
     if (this.placeholder == "")
       this.placeholder = this.label;
   }
+
+  private filter(value: any): MatOption<any>[] {
+    return this.items?.filter(x => x.viewValue.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+  }
+
   getViewValue(value: any) {
     if (value) {
       return this.items.find(x => x.value == value)?.viewValue;
