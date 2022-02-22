@@ -26,7 +26,7 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   @Input() placeholder: string = "";
   @Input() items!: MatOption<any>[];
   @Input() multiple: boolean = false;
-  @Input() viewValueName!: string;
+  @Input() viewValueNameIfModel!: string;
   @Input() filterOptions!: ((value: any) => Observable<MatOption<any>[]>);
 
   asyncItems!: Observable<MatOption<any>[]>;
@@ -101,8 +101,8 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   }
 
   getViewValue(value: any) {
-    if (this.viewValueName && value)
-      return value[this.viewValueName];
+    if (this.viewValueNameIfModel && value)
+      return value[this.viewValueNameIfModel];
     return value;
   }
 }

@@ -44,7 +44,6 @@ export class AutoCompleteViewComponent {
   ngModel: Model;
 
   filterOption(value: any): Observable<MatOption<Model>[]> {
-    console.log(value);
     return of(this.itemsCopy.filter(x => x.viewValue.toLocaleLowerCase().includes(value.toLocaleLowerCase()))).pipe(delay(2000));
   }
 }
