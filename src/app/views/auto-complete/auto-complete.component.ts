@@ -25,6 +25,7 @@ export class AutoCompleteViewComponent {
 
     this.items = QuiFormHelper.convertToMatOption(list, "value");
     this.itemsCopy = QuiFormHelper.convertToMatOption(list, "value");
+    this.initValue = [<MatOption<Model>>{viewValue: this.items[0].viewValue, value: this.items[0].value}];
     this.ngModel = list[0];
     this.fg = new FormGroup({
       input: new FormControl(this.items[0].value, Validators.required),
@@ -38,11 +39,13 @@ export class AutoCompleteViewComponent {
 
   items: MatOption<Model>[];
   itemsCopy: MatOption<Model>[];
+  initValue: MatOption<Model>[];
 
   ngModel: Model;
 
   filterOption(value: any): Observable<MatOption<Model>[]> {
-    return of(this.itemsCopy.filter(x => x.viewValue.includes(value))).pipe(delay(2000));
+    console.log(value);
+    return of(this.itemsCopy.filter(x => x.viewValue.toLocaleLowerCase().includes(value.toLocaleLowerCase()))).pipe(delay(2000));
   }
 }
 
