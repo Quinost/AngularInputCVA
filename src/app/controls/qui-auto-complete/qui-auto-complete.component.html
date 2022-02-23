@@ -2,12 +2,13 @@
     <mat-label>{{label}}</mat-label>
     <input #input type="text" placeholder="Pick one" aria-label="Number" matInput [(ngModel)]="_value" 
         [matAutocomplete]="auto" [errorStateMatcher]="errorStateMatcher">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="getViewValue.bind(this)">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="getViewValue.bind(this)" >
         <ng-container>
             <mat-option disabled *ngIf="isLoading">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </mat-option>
-            <mat-option *ngFor="let item of asyncItems | async" [value]="item.value" [ngStyle]="{display: isLoading ? 'none' : 'block'}">
+            <mat-option *ngFor="let item of asyncItems | async" [value]="item.value" [ngStyle]="{display: isLoading ? 'none' : 'block'}" 
+            (onSelectionChange)="onSelectionChange(item)">
                 {{item.viewValue}}
             </mat-option>
         </ng-container>

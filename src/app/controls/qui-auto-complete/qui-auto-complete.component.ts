@@ -25,12 +25,12 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   @Input() floatLabel: "always" | "never" | "auto" = "auto";
   @Input() placeholder: string = "";
   @Input() items!: MatOption<any>[];
-  @Input() multiple: boolean = false;
-  @Input() viewValueNameIfModel!: string;
+  @Input() initValue!: MatOption<any>;
   @Input() filterOptions!: ((value: any) => Observable<MatOption<any>[]>);
 
   asyncItems!: Observable<MatOption<any>[]>;
   isLoading: boolean = false;
+  private tempValue: MatOption<any> | undefined;
 
   @Input() value: any;
   get _value() {
@@ -50,6 +50,8 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   }
 
   ngAfterContentInit(): void {
+    if (this.initValue)
+      this.tempValue = this.initValue;
     if (this.items)
       this.asyncItems = new Observable(o => o.next(this.items));
 
@@ -74,6 +76,7 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
               return this.filterOptions(x).pipe(finalize(() => this.isLoading = false));
             }));
         }
+
         else {
           this.asyncItems = this.ngControl.valueChanges.pipe(
             startWith(''),
@@ -101,8 +104,15 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   }
 
   getViewValue(value: any) {
-    if (this.viewValueNameIfModel && value)
-      return value[this.viewValueNameIfModel];
+    if (value) {
+      if (this.tempValue)
+        return this.tempValue.viewValue ?? value;
+      if (this.items && typeof value != 'string')
+        return this.items?.find(x => x.value == value)?.viewValue ?? value;
+    }
     return value;
+  }
+  onSelectionChange(event: any) {
+    this.tempValue = event;
   }
 }

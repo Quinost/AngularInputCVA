@@ -17,7 +17,7 @@ export class QuiInputComponent extends QuiInputBaseControl<string | null>{
     }
   }
 
-  @Input() showClearBtn: boolean = false;
+  @Input() clearBtn: boolean = false;
 
   @Input() value!: string | null;
   get _value() {

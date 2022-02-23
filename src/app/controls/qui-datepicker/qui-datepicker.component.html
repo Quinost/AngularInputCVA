@@ -2,8 +2,7 @@
     <mat-label>{{label}}</mat-label>
 
     <input matInput type="datetime" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
-        [matDatepicker]="picker" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly"
-        [hidden]="hidden" aria-label="datetime" />
+        [matDatepicker]="picker" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" aria-label="datetime" />
 
     <ng-container matSuffix>
         <mat-datepicker-toggle [for]="picker" *ngIf="!formControl.pending" [disabled]="disabled || readonly"></mat-datepicker-toggle>

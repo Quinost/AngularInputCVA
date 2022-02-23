@@ -17,7 +17,7 @@ export class QuiPasswordComponent extends QuiInputBaseControl<string | null>{
         }
     }
 
-    @Input() showClearBtn: boolean = false;
+    @Input() visibilityBtn: boolean = true;
 
     type: 'text' | 'password' = 'password';
 
@@ -35,9 +35,6 @@ export class QuiPasswordComponent extends QuiInputBaseControl<string | null>{
     }
 
     onVisibilityChanged() {
-        if (this.type == 'password')
-            this.type = 'text';
-        else
-            this.type = 'password';
+        this.type == 'password' ? this.type = 'text' : this.type = 'password';
     }
 }

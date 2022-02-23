@@ -12,12 +12,10 @@ export abstract class QuiBaseControl<T> implements ControlValueAccessor {
     @Input() required: boolean = false;
     @Input() disabled: boolean = false;
     @Input() readonly: boolean = false;
-    @Input() hidden: boolean = false;
 
     formControl = new FormControl();
     abstract value: T;
     abstract ngControl: NgControl | null;
-    //abstract get errorStateMatcher(): ErrorStateMatcher;
 
     onChanged: any = () => { };
     onTouched: any = () => { };

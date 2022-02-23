@@ -6,9 +6,7 @@
                 [errorStateMatcher]="errorStateMatcher"
                 [required]="_required"
                 [disabled]="disabled || readonly"
-                [hidden]="hidden"
-                [placeholder]="placeholder"
-                [title]="'ddd'">
+                [placeholder]="placeholder">
       <mat-option *ngFor="let item of items" [value]="item.value">
         {{item.viewValue}}
       </mat-option>

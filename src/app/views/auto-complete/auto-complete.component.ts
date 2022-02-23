@@ -13,15 +13,15 @@ export class AutoCompleteViewComponent {
   constructor() {
     let list = [<Model>{ id: 1, value: "Poland" },
     <Model>{ id: 2, value: "Germany" },
-    <Model>{ id: 2, value: "Netherlands" },
-    <Model>{ id: 2, value: "Norway" },
-    <Model>{ id: 2, value: "France" },
-    <Model>{ id: 2, value: "Spain" },
-    <Model>{ id: 2, value: "Switzerland" },
-    <Model>{ id: 2, value: "Czechia" },
-    <Model>{ id: 2, value: "Denmark" },
-    <Model>{ id: 2, value: "Sweden" },
-    <Model>{ id: 2, value: "Luxembourg" }];
+    <Model>{ id: 3, value: "Netherlands" },
+    <Model>{ id: 4, value: "Norway" },
+    <Model>{ id: 5, value: "France" },
+    <Model>{ id: 6, value: "Spain" },
+    <Model>{ id: 7, value: "Switzerland" },
+    <Model>{ id: 8, value: "Czechia" },
+    <Model>{ id: 9, value: "Denmark" },
+    <Model>{ id: 10, value: "Sweden" },
+    <Model>{ id: 11, value: "Luxembourg" }];
 
     this.items = QuiFormHelper.convertToMatOption(list, "value");
     this.itemsCopy = QuiFormHelper.convertToMatOption(list, "value");

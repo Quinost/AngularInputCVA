@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { QuiFormHelper } from 'src/app/controls/base/helpers/qui-form-helper';
+import { AsyncValidator } from '../AsyncValidator';
 
 @Component({
   selector: 'app-password',
@@ -26,7 +27,7 @@ export class PasswordComponent {
   hint: string = "";
   label: string = "";
   placeholder: string = "";
-  showClearBtn: boolean = false;
+  visibilityBtn: boolean = true;
   apperance: MatOption<string>[];
   apperanceItem: "standard" | "fill" | "outline" = "standard";
   floatLabel: MatOption<string>[];
@@ -48,7 +49,7 @@ export class PasswordComponent {
 
   validatorChanged(event: boolean) {
     if (event == true)
-      this.fg.get('input')?.setAsyncValidators(new QuiFormHelper().usernameValidator());
+      this.fg.get('input')?.setAsyncValidators(AsyncValidator.usernameValidator());
     else
       this.fg.get('input')?.clearAsyncValidators();
     this.fg.get('input')?.updateValueAndValidity();
