@@ -1,7 +1,7 @@
-import { AfterContentInit, Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, Input, Optional, Self } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { concat, concatMap, debounceTime, defaultIfEmpty, distinctUntilChanged, filter, map, merge, observable, Observable, pipe, startWith, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, finalize, map, Observable, startWith, switchMap, tap } from 'rxjs';
 import { QuiBaseControl } from '../base/directives/qui-base-control.directive';
 import { QuiErrorMessageService } from '../base/services/qui-error-message.service';
 
@@ -25,13 +25,12 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   @Input() floatLabel: "always" | "never" | "auto" = "auto";
   @Input() placeholder: string = "";
   @Input() items!: MatOption<any>[];
-  @Input() multiple: boolean = false;
-  @Input() filterOptions: ((value: any) => Observable<MatOption<any>[]>) | null = null;
-
-  inputFormControl: FormControl = new FormControl("");
+  @Input() initValue!: MatOption<any>;
+  @Input() filterOptions!: ((value: any) => Observable<MatOption<any>[]>);
 
   asyncItems!: Observable<MatOption<any>[]>;
-  loading: boolean = false;
+  isLoading: boolean = false;
+  private tempValue: MatOption<any> | undefined;
 
   @Input() value: any;
   get _value() {
@@ -51,44 +50,69 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
   }
 
   ngAfterContentInit(): void {
+    if (this.initValue)
+      this.tempValue = this.initValue;
     if (this.items)
       this.asyncItems = new Observable(o => o.next(this.items));
 
     if (this.ngControl) {
       this.formControl = this.ngControl.control as FormControl;
-      if (this.filterOptions != null) {
-        if (this.ngControl.valueChanges)
-          this.ngControl.valueChanges.pipe(
+      if (this.ngControl.valueChanges) {
+        if (this.filterOptions) {
+          this.asyncItems = this.ngControl.valueChanges.pipe(
             startWith(''),
-            tap(t => this.loading = true),
-            distinctUntilChanged(),
-            debounceTime(2000),
-            tap(t => this.asyncItems = new Observable()),
-            map((x: any) => {
-              if (this.filterOptions)
-                this.filterOptions(x).subscribe({
-                  next: (v) => {
-                    console.log(v);
-                    this.asyncItems = new Observable(o => o.next(v));
-                    this.loading = false
-                  },
-                  error: () => {
-                    console.log("error");
-                    this.loading = false
-                  }
-                })
-            }),
-          ).subscribe();
+            distinctUntilChanged(
+              (previous, current) => {
+                if (typeof current == 'string')
+                  return false;
+                if (previous == current)
+                  return false;
+                return true;
+              }
+            ),
+            debounceTime(1500),
+            tap(() => this.isLoading = true),
+            switchMap(x => {
+              return this.filterOptions(x).pipe(finalize(() => this.isLoading = false));
+            }));
+        }
+
+        else {
+          this.asyncItems = this.ngControl.valueChanges.pipe(
+            startWith(''),
+            distinctUntilChanged(
+              (previous, current) => {
+                if (typeof current == 'string')
+                  return false;
+                if (previous == current)
+                  return false;
+                return true;
+              }
+            ),
+            map(name => this.filter(name)),
+          );
+        }
       }
     }
 
     if (this.placeholder == "")
       this.placeholder = this.label;
   }
+
+  private filter(value: any): MatOption<any>[] {
+    return this.items?.filter(x => x.viewValue.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+  }
+
   getViewValue(value: any) {
     if (value) {
-      return this.items.find(x => x.value == value)?.viewValue;
+      if (this.tempValue)
+        return this.tempValue.viewValue ?? value;
+      if (this.items && typeof value != 'string')
+        return this.items?.find(x => x.value == value)?.viewValue ?? value;
     }
     return value;
+  }
+  onSelectionChange(event: any) {
+    this.tempValue = event;
   }
 }

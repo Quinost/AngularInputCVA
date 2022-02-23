@@ -12,6 +12,6 @@ export class AppComponent {
   constructor(quiErr: QuiErrorMessageService){
     quiErr.addMessage(new ErrorMessage(DefaultErrorForValidator.Required, "Default required message"));
     quiErr.addMessage(new ErrorMessage(DefaultErrorForValidator.Required, "Default required message"));
-    quiErr.addMessage(new ErrorMessage("usernameExists", "Username exists"));
+    quiErr.addMessage(new ErrorMessage("asyncValid", "Async validator work!"));
   }
 }

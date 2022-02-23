@@ -10,7 +10,7 @@
             <form [formGroup]="fg">
                 <qui-input label="QuiInputLabel" 
                             formControlName="input" 
-                            [showClearBtn]="showClearBtn"
+                            [clearBtn]="clearBtn"
                             [hint]="hint"
                             [label]="label"
                             [placeholder]="placeholder"
@@ -32,7 +32,7 @@
             <qui-input label="QuiInputLabel" [(ngModel)]="ngModel" 
                     [required]="required"
                     [disabled]="disabled"
-                    [showClearBtn]="showClearBtn"
+                    [clearBtn]="clearBtn"
                     [hint]="hint"
                     [label]="label"
                     [placeholder]="placeholder"
@@ -53,7 +53,7 @@
     <p><qui-input [(ngModel)]="placeholder" label="[placeholder]"></qui-input> If empty its take label value</p>
     <p><qui-select [items]="apperance" [(ngModel)]="apperanceItem" label="[appearance]"></qui-select></p>
     <p><qui-select [items]="floatLabel" [(ngModel)]="floatLabelItem" label="[floatLabel]"></qui-select></p>
-    <p><qui-checkbox [(ngModel)]="showClearBtn">[showClearBtn]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="clearBtn">[clearBtn]</qui-checkbox></p>
     <p><qui-checkbox [(ngModel)]="required">[required]</qui-checkbox></p>
     <p><qui-checkbox [(ngModel)]="hidden">[hidden]</qui-checkbox></p>
     <p><qui-checkbox [(ngModel)]="readonly">[readonly]</qui-checkbox></p>

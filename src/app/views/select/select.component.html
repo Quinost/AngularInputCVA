@@ -8,7 +8,24 @@
         </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="fg">
-                <qui-select [items]="items" formControlName="input"></qui-select>
+                <qui-select [items]="items" formControlName="input"
+                [hint]="hint"
+                [label]="label"
+                [placeholder]="placeholder"
+                [appearance]="apperanceItem"
+                [floatLabel]="floatLabelItem"
+                [hidden]="hidden"
+                [readonly]="readonly"></qui-select>
+                <br/>
+                <qui-select [items]="items" formControlName="input2"
+                [multiple]="true"
+                [hint]="hint"
+                [label]="label"
+                [placeholder]="placeholder"
+                [appearance]="apperanceItem"
+                [floatLabel]="floatLabelItem"
+                [hidden]="hidden"
+                [readonly]="readonly"></qui-select>
             </form>
         </mat-card-content>
         <mat-card-footer>
@@ -20,7 +37,17 @@
             NgModel
         </mat-card-subtitle>
         <mat-card-content>
-            <qui-select [items]="items" [(ngModel)]="ngModel"></qui-select>
+            <qui-select [items]="items" [(ngModel)]="ngModel"
+            [multiple]="multiple"
+            [required]="required"
+            [disabled]="disabled"
+            [hint]="hint"
+            [label]="label"
+            [placeholder]="placeholder"
+            [appearance]="apperanceItem"
+            [floatLabel]="floatLabelItem"
+            [hidden]="hidden"
+            [readonly]="readonly"></qui-select>
         </mat-card-content>
         <mat-card-footer>
             {{ngModel | json}}
@@ -28,5 +55,16 @@
     </mat-card>
 </mat-card>
 <mat-card>
+    <p><strong>You can use reactive forms normally or ngModel</strong></p>
+    <p><qui-input [(ngModel)]="hint" label="[hint]"></qui-input></p>
+    <p><qui-input [(ngModel)]="label" label="[label]"></qui-input></p>
+    <p><qui-input [(ngModel)]="placeholder" label="[placeholder]"></qui-input> If empty its take label value</p>
+    <p><qui-select [items]="apperance" [(ngModel)]="apperanceItem" label="[appearance]"></qui-select></p>
+    <p><qui-select [items]="floatLabel" [(ngModel)]="floatLabelItem" label="[floatLabel]"></qui-select></p>
+    <p><qui-checkbox [(ngModel)]="multiple" [disabled]="true">[multiple] - can be set only before initialization</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="required">[required]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="hidden">[hidden]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="readonly">[readonly]</qui-checkbox></p>
+    <p><qui-checkbox [(ngModel)]="disabled" (ngModelChange)="disabledChanged($event)">[disabled]</qui-checkbox></p>
     <p>Error messages (with translations) can be set up in QuiErrorMessageService</p>
 </mat-card>

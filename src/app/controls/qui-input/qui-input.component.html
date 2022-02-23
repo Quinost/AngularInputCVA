@@ -2,12 +2,12 @@
     <mat-label>{{label}}</mat-label>
 
     <input matInput type="text" [(ngModel)]="_value" [errorStateMatcher]="errorStateMatcher" [required]="_required"
-        [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [hidden]="hidden" aria-label="input" />
+        [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" aria-label="input" />
 
     <ng-container matSuffix>
         <mat-progress-spinner [mode]="'indeterminate'" [diameter]="20" *ngIf="formControl.pending">
         </mat-progress-spinner>
-        <button mat-icon-button aria-label="Clear" (click)="_value = null" *ngIf="!formControl.pending && showClearBtn"
+        <button mat-icon-button aria-label="Clear" (click)="_value = null" *ngIf="!formControl.pending && clearBtn"
             [disabled]="disabled || readonly">
             <mat-icon>close</mat-icon>
         </button>
