@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, Input, Optional, Self } from '@angular/core';
 import { FormControl, NgControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, finalize, map, Observable, startWith, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, finalize, map, Observable, of, skip, startWith, switchMap, tap } from 'rxjs';
 import { QuiBaseControl } from '../base/directives/qui-base-control.directive';
 import { QuiErrorMessageService } from '../base/services/qui-error-message.service';
 
@@ -73,7 +73,10 @@ export class QuiAutoCompleteComponent extends QuiBaseControl<any> implements Aft
             debounceTime(1500),
             tap(() => this.isLoading = true),
             switchMap(x => {
-              return this.filterOptions(x).pipe(finalize(() => this.isLoading = false));
+              if (x as string == '')
+                return of([]).pipe(finalize(() => this.isLoading = false));
+              else
+                return this.filterOptions(x).pipe(finalize(() => this.isLoading = false));
             }));
         }
 
