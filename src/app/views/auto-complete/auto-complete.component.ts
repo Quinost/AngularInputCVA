@@ -28,7 +28,7 @@ export class AutoCompleteViewComponent {
     this.initValue = [<MatOption<Model>>{viewValue: this.items[0].viewValue, value: this.items[0].value}];
     this.ngModel = list[0];
     this.fg = new FormGroup({
-      input: new FormControl(this.items[0].value, Validators.required),
+      input: new FormControl(null, Validators.required),
       input2: new FormControl(this.items[1].value, Validators.required)
     });
   }
@@ -45,6 +45,10 @@ export class AutoCompleteViewComponent {
 
   filterOption(value: any): Observable<MatOption<Model>[]> {
     return of(this.itemsCopy.filter(x => x.viewValue.toLocaleLowerCase().includes(value.toLocaleLowerCase()))).pipe(delay(2000));
+  }
+
+  onNgSubmit(event : any){
+    console.log(event);
   }
 }
 

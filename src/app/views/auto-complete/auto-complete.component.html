@@ -7,10 +7,11 @@
             ReactiveForms
         </mat-card-subtitle>
         <mat-card-content>
-            <form [formGroup]="fg">
+            <form [formGroup]="fg" (ngSubmit)="onNgSubmit($event)">
                 <qui-auto-complete formControlName="input" [initValue]="items[0]" [filterOptions]="filterOption.bind(this)"></qui-auto-complete>
                 <br>
                 <qui-auto-complete formControlName="input2" [items]="items"></qui-auto-complete>
+                <button mat-raised-button type="submit">Dirty</button>
             </form>
         </mat-card-content>
         <mat-card-footer>

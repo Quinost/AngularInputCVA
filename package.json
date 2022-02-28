@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng deploy --base-href=https://quinost.github.io/AngInputCVA/"
+    "deploy": "ng deploy --base-href=https://quinost.github.io/AngularInputCVA/"
   },
   "private": true,
   "dependencies": {

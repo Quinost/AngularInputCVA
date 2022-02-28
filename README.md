@@ -1,6 +1,6 @@
 # AngInputCVA
 
-Github page [https://quinost.github.io/AngInputCVA/](https://quinost.github.io/AngInputCVA/)
+Github page [https://quinost.github.io/AngularInputCVA/](https://quinost.github.io/AngularInputCVA//)
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
